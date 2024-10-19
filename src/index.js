@@ -1,4 +1,6 @@
-const helloNode = document.createElement('h1');
-helloNode.textContent = "Hello World!";
+import { createElement } from "./utils";
+
+
+const helloNode = createElement('h1', {textContent: "Hello World! "})
 document.getElementById('root').appendChild(helloNode);
 
