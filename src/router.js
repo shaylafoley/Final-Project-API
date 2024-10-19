@@ -3,6 +3,7 @@ import { createElement } from './utils';
 import Page1 from './Page1';
 
 import Page3 from './Page3';
+import Page2 from './Page2';
 
 export function initRouter(mainView) {
   function updateView(newView) {
@@ -17,7 +18,7 @@ export function initRouter(mainView) {
         break;
 
       case '#/page2':
-        updateView(Counter());
+        updateView(Page2());
         break;
 
       case '#/page3':
