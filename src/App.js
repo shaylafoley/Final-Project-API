@@ -3,7 +3,7 @@ import { initRouter } from './router';
 
 function Header(mainDiv) {
   const appTitle = createElement('h1', {
-    textContent: 'My Cool Project',
+    textContent: 'Final Project - NASA App',
     className: 'heading',
   });
 
