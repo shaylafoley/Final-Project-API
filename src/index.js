@@ -1,6 +1,4 @@
-import { createElement } from "./utils";
+import App from './App';
 
-
-const helloNode = createElement('h1', {textContent: "Hello World! "})
-document.getElementById('root').appendChild(helloNode);
+document.getElementById('root').appendChild(App());
 
