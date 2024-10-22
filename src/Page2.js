@@ -1,5 +1,6 @@
 import { createElement } from './utils';
-import { searchMedia } from './utils';
+import { searchMedia } from './utils'; // Keep the reusable function here
+
 function Page2() {
     const title = createElement('h2', { textContent: 'NASA Image Search' });
     
@@ -10,7 +11,7 @@ function Page2() {
     const searchButton = createElement('button', { textContent: 'Search' });
   
     // Create a container to display the search results
-    const resultsContainer = createElement('div', { id: 'results-container' });
+    const resultsContainer = createElement('div', { id: 'results-container' }); // The container will use the CSS defined
   
     // Add event listener to the search button
     searchButton.addEventListener('click', async () => {
@@ -26,7 +27,7 @@ function Page2() {
         const searchResults = await searchMedia(searchTerm);
   
         // Clear any previous search results
-        resultsContainer.innerHTML = '';
+        resultsContainer.innerHTML = ''; // Clear the container before displaying new results
   
         if (searchResults.length === 0) {
           resultsContainer.textContent = 'No results found!';
@@ -37,7 +38,11 @@ function Page2() {
         searchResults.forEach(result => {
           // Check if the result has a media type of 'image'
           if (result.links && result.links[0].rel === 'preview' && result.links[0].href) {
-            const imageElement = createElement('img', { src: result.links[0].href, alt: result.data[0].title, width: '200' });
+            const imageElement = createElement('img', {
+              src: result.links[0].href,
+              alt: result.data[0].title,
+              className: 'nasa-results', // Add the class for additional styling (optional)
+            });
             
             // Create a title for each image
             const titleElement = createElement('p', { textContent: result.data[0].title });
@@ -54,6 +59,6 @@ function Page2() {
     });
   
     return createElement('div', {}, [title, searchInput, searchButton, resultsContainer]);
-  }
-  
-  export default Page2;
+}
+
+export default Page2;

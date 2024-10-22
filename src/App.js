@@ -44,10 +44,17 @@ function App() {
   });
 
   const main = createElement('main', {}, []);
+  
+  const rocket = createElement('img', {
+    src: new URL('../images/rocket.jpeg', import.meta.url), // Adjust path to your rocket image
+    alt: 'Rocket Ship',
+    className: 'rocket', 
+  });
 
+
+  document.body.appendChild(rocket); 
   initRouter(main);
-
-  // Return the app structure with the image before the main content
+  
   return createElement('div', {}, [Header(main), image, main, Footer()]);
 }
 
