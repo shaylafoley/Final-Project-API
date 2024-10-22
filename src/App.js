@@ -10,11 +10,11 @@ function Header(mainDiv) {
   // nav items
   const page1 = createElement('a', {
     href: '/#/page1',
-    textContent: 'Page 1',
+    textContent: 'Picture of the Day',
   });
   const page2 = createElement('a', {
     href: '/#/page2',
-    textContent: 'Page 2',
+    textContent: 'Search NASA Pictures',
   });
   const page3 = createElement('a', {
     href: '/#/page3',
@@ -35,11 +35,20 @@ function Footer() {
 }
 
 function App() {
+  // Create an image element for the NASA logo or any other image
+  const image = createElement('img', {
+    src: new URL('../images/hubbleSpace.webp', import.meta.url),
+    alt: 'NASA Picture',
+    className: 'nasa-image', // Add some CSS class for styling
+    style: 'width: 200px; margin: 20px auto; display: block;', // Inline styles for basic positioning
+  });
+
   const main = createElement('main', {}, []);
 
   initRouter(main);
 
-  return createElement('div', {}, [Header(main), main, Footer()]);
+  // Return the app structure with the image before the main content
+  return createElement('div', {}, [Header(main), image, main, Footer()]);
 }
 
 export default App;
