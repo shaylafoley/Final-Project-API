@@ -5,10 +5,10 @@ function Page1() {
   const title = createElement('h2', { textContent: 'Picture of the Day' });
   
   // Create the date picker
-  const dateSelect = createElement('input', { type: 'date' });
+  const dateSelect = createElement('input', { type: 'date', className: 'date-select' });
 
   // Create the button
-  const getMediaButton = createElement('button', { textContent: 'Get Media' });
+  const getMediaButton = createElement('button', { textContent: 'Get Media', className: 'get-media-button' });
 
   // Add event listener to fetch media when the button is clicked
   getMediaButton.addEventListener('click', async () => {

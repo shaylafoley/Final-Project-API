@@ -1,64 +1,83 @@
 import { createElement } from './utils';
-import { searchMedia } from './utils'; // Keep the reusable function here
+import { searchMedia } from './utils';
 
 function Page2() {
-    const title = createElement('h2', { textContent: 'NASA Image Search' });
-    
-    // Create a search input for users to type their search term
-    const searchInput = createElement('input', { type: 'text', placeholder: 'Search NASA images...' });
-    
-    // Create a button to trigger the search
-    const searchButton = createElement('button', { textContent: 'Search' });
+  const title = createElement('h2', { textContent: 'NASA Image Search' });
   
-    // Create a container to display the search results
-    const resultsContainer = createElement('div', { id: 'results-container' }); // The container will use the CSS defined
+  const searchInput = createElement('input', { type: 'text', placeholder: 'Search NASA images...', className: 'search-input' });
   
-    // Add event listener to the search button
-    searchButton.addEventListener('click', async () => {
-      const searchTerm = searchInput.value; // Get the value entered in the search input
+  const searchButton = createElement('button', { textContent: 'Search', className: 'search-button' });
   
-      if (!searchTerm) {
-        alert('Please enter a search term!');
-        return;
-      }
+  const resultsContainer = createElement('div', { id: 'results-container' });
   
-      try {
-        // Fetch search results from the NASA Image and Video Library API
-        const searchResults = await searchMedia(searchTerm);
-  
-        // Clear any previous search results
-        resultsContainer.innerHTML = ''; // Clear the container before displaying new results
-  
-        if (searchResults.length === 0) {
-          resultsContainer.textContent = 'No results found!';
-          return;
-        }
-  
-        // Loop through search results and display them on the page
-        searchResults.forEach(result => {
-          // Check if the result has a media type of 'image'
-          if (result.links && result.links[0].rel === 'preview' && result.links[0].href) {
-            const imageElement = createElement('img', {
-              src: result.links[0].href,
-              alt: result.data[0].title,
-              className: 'nasa-results', // Add the class for additional styling (optional)
-            });
-            
-            // Create a title for each image
-            const titleElement = createElement('p', { textContent: result.data[0].title });
-  
-            // Append the image and title to the results container
-            resultsContainer.appendChild(imageElement);
-            resultsContainer.appendChild(titleElement);
-          }
+  // Function to save search results to local storage
+  const saveResultsToLocalStorage = (results) => {
+    localStorage.setItem('nasaSearchResults', JSON.stringify(results));
+  };
+
+  // Function to load results from local storage
+  const loadResultsFromLocalStorage = () => {
+    const savedResults = JSON.parse(localStorage.getItem('nasaSearchResults') || '[]');
+    return savedResults;
+  };
+
+  // Function to display search results
+  const displayResults = (results) => {
+    resultsContainer.innerHTML = '';
+    if (results.length === 0) {
+      resultsContainer.textContent = 'No results found!';
+      return;
+    }
+
+    results.forEach(result => {
+      if (result.links && result.links[0].rel === 'preview' && result.links[0].href) {
+        const imageElement = createElement('img', {
+          src: result.links[0].href,
+          alt: result.data[0].title,
+          className: 'nasa-image',
         });
-      } catch (error) {
-        console.error('Error during search:', error);
-        resultsContainer.textContent = 'An error occurred while searching. Please try again.';
+
+        const titleElement = createElement('p', { textContent: result.data[0].title });
+        resultsContainer.appendChild(imageElement);
+        resultsContainer.appendChild(titleElement);
       }
     });
+  };
+
+  // Load and display saved results on page load
+  const savedResults = loadResultsFromLocalStorage();
+  if (savedResults.length > 0) {
+    displayResults(savedResults);
+  }
+  searchInput.addEventListener('focus', () => {
+    searchInput.style.width = '200px';
+    searchInput.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)';
+  });
   
-    return createElement('div', {}, [title, searchInput, searchButton, resultsContainer]);
+  searchInput.addEventListener('blur', () => {
+    searchInput.style.width = '200px';
+    searchInput.style.boxShadow = 'none';
+  });
+  // Add event listener to the search button
+  searchButton.addEventListener('click', async () => {
+    searchButton.style.backgroundColor = 'lightblue';
+    const searchTerm = searchInput.value;
+    if (!searchTerm) {
+      alert('Please enter a search term!');
+      return;
+    }
+
+    try {
+      const searchResults = await searchMedia(searchTerm);
+      saveResultsToLocalStorage(searchResults); // Save results to local storage
+      displayResults(searchResults); // Display results
+    } catch (error) {
+      console.error('Error during search:', error);
+      resultsContainer.textContent = 'An error occurred while searching. Please try again.';
+    }
+  });
+
+  return createElement('div', {}, [title, searchInput, searchButton, resultsContainer]);
 }
 
 export default Page2;

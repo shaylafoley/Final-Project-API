@@ -18,7 +18,7 @@ function Header(mainDiv) {
   });
   const page3 = createElement('a', {
     href: '/#/page3',
-    textContent: 'Page 3',
+    textContent: 'NASA Fun Facts',
   });
 
   const nav = createElement('nav', {}, [page1, page2, page3]);
@@ -29,6 +29,7 @@ function Header(mainDiv) {
 function Footer() {
   const copyright = createElement('span', {
     textContent: `Copyright © ${new Date().getFullYear()}`,
+    className: 'footer',
   });
 
   return createElement('footer', {}, [copyright]);
@@ -39,7 +40,7 @@ function App() {
   const image = createElement('img', {
     src: new URL('../images/hubbleSpace.webp', import.meta.url),
     alt: 'NASA Picture',
-    className: 'nasa-image', // Add some CSS class for styling
+    className: 'nasa-image1', // Add some CSS class for styling
     style: 'width: 200px; margin: 20px auto; display: block;', // Inline styles for basic positioning
   });
 
