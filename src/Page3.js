@@ -21,7 +21,7 @@ function Page3() {
   const factContainer = createElement('div', { id: 'fact-container' });
   
   // Button to fetch a new fact
-  const getFactButton = createElement('button', { textContent: 'Show Today\'s Fact' });
+  const getFactButton = createElement('button', { textContent: 'Show Today\'s Fact', className: 'fun-fact-button' });
 
   // Event listener to fetch and display the daily fact
   getFactButton.addEventListener('click', async () => {

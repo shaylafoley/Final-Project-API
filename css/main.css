@@ -136,3 +136,24 @@ header {
     height: 50px;
     font-size: x-large;
   }
+
+  .fun-fact-button {
+    margin: 20px;
+    width: 150px;
+    height: 80px;
+    font-size: x-large;
+  }
+
+  #fact-container {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 600px;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .fact-image {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
