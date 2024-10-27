@@ -2,7 +2,7 @@ import { createElement } from './utils';
 import { searchMedia } from './utils';
 
 function Page2() {
-  const title = createElement('h2', { textContent: 'NASA Image Search' });
+  const title = createElement('h2', { textContent: 'NASA Image Search', className: 'title' });
   
   const searchInput = createElement('input', { type: 'text', placeholder: 'Search NASA images...', className: 'search-input' });
   
@@ -28,21 +28,55 @@ function Page2() {
       resultsContainer.textContent = 'No results found!';
       return;
     }
-
     results.forEach(result => {
       if (result.links && result.links[0].rel === 'preview' && result.links[0].href) {
-        const imageElement = createElement('img', {
-          src: result.links[0].href,
-          alt: result.data[0].title,
-          className: 'nasa-image',
-        });
-
-        const titleElement = createElement('p', { textContent: result.data[0].title });
-        resultsContainer.appendChild(imageElement);
-        resultsContainer.appendChild(titleElement);
+        const cardContainer = createElement('div', { className: 'flip-card' });
+        const cardInner = createElement('div', { className: 'flip-card-inner' });
+    
+        // Front of the card with the image
+        const cardFront = createElement('div', { className: 'flip-card-front' });
+        const imageElement = createElement('img', { src: result.links[0].href, alt: result.data[0].title, width: '600' });
+        cardFront.appendChild(imageElement);
+    
+        // Back of the card with additional JSON data
+        const cardBack = createElement('div', { className: 'flip-card-back' });
+        const titleElement = createElement('h3', { textContent: result.data[0].title });
+        const descriptionElement = createElement('p', { textContent: result.data[0].description || 'No description available' });
+        const dateElement = createElement('p', { textContent: `Date: ${result.data[0].date_created}` });
+        const photographerElement = createElement('p', { textContent: `Photographer: ${result.data[0].photographer || 'N/A'}` });
+        const locationElement = createElement('p', { textContent: `Location: ${result.data[0].location || 'N/A'}` });
+        const keywordsElement = createElement('p', { textContent: `Keywords: ${result.data[0].keywords.join(', ')}` });
+        
+        // Append JSON data elements to the back of the card
+        cardBack.appendChild(titleElement);
+        cardBack.appendChild(descriptionElement);
+        cardBack.appendChild(dateElement);
+        cardBack.appendChild(photographerElement);
+        cardBack.appendChild(locationElement);
+        cardBack.appendChild(keywordsElement);
+    
+        // Assemble the card
+        cardInner.appendChild(cardFront);
+        cardInner.appendChild(cardBack);
+        cardContainer.appendChild(cardInner);
+        resultsContainer.appendChild(cardContainer);
       }
     });
-  };
+  };  
+  //   results.forEach(result => {
+  //     if (result.links && result.links[0].rel === 'preview' && result.links[0].href) {
+  //       const imageElement = createElement('img', {
+  //         src: result.links[0].href,
+  //         alt: result.data[0].title,
+  //         className: 'nasa-image',
+  //       });
+
+  //       const titleElement = createElement('p', { textContent: result.data[0].title });
+  //       resultsContainer.appendChild(imageElement);
+  //       resultsContainer.appendChild(titleElement);
+  //     }
+  //   });
+  // };
 
   // Load and display saved results on page load
   const savedResults = loadResultsFromLocalStorage();

@@ -2,7 +2,7 @@ import { createElement } from './utils';  // Assuming createElement is also in u
 import { fetchMedia } from './utils';     // Import the fetchMedia function from utils.js
 
 function Page1() {
-  const title = createElement('h2', { textContent: 'Picture of the Day' });
+  const title = createElement('h2', { textContent: 'Picture of the Day', className: 'title' });
   
   // Create the date picker
   const dateSelect = createElement('input', { type: 'date', className: 'date-select' });

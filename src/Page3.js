@@ -15,7 +15,7 @@ async function fetchDailyFact() {
 }
 
 function Page3() {
-  const title = createElement('h2', { textContent: 'NASA Daily Fact' });
+  const title = createElement('h2', { textContent: 'NASA Daily Fact', className: 'title' });
   
   // Container for displaying the fact
   const factContainer = createElement('div', { id: 'fact-container' });

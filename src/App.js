@@ -11,14 +11,17 @@ function Header(mainDiv) {
   const page1 = createElement('a', {
     href: '/#/page1',
     textContent: 'Picture of the Day',
+    className: 'link-text',
   });
   const page2 = createElement('a', {
     href: '/#/page2',
     textContent: 'Search NASA Pictures',
+    className: 'link-text'
   });
   const page3 = createElement('a', {
     href: '/#/page3',
     textContent: 'NASA Fun Facts',
+    className: 'link-text'
   });
 
   const nav = createElement('nav', {}, [page1, page2, page3]);
@@ -41,7 +44,7 @@ function App() {
     src: new URL('../images/hubbleSpace.webp', import.meta.url),
     alt: 'NASA Picture',
     className: 'nasa-image1', // Add some CSS class for styling
-    style: 'width: 200px; margin: 20px auto; display: block;', // Inline styles for basic positioning
+    style: 'width: 400px; margin: 20px auto; display: block;', // Inline styles for basic positioning
   });
 
   const main = createElement('main', {}, []);
